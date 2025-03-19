@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        input {
+            padding: 10px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            margin-left: 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+        }
+        #parent{
+           img{
+            border-radius: 50%;
+           }
+        }
+    </style>
+</head>
+<body>
+    <input type="text" name="" id="input">
+    <button onclick="fetchData()">CLICK</button>
+    <div id="parent"></div>
+
+
+    <script>
+        function fetchData(){
+            var input = document.getElementById("input").value;
+            var url = `https://api.github.com/users/${input}`
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                var parent = document.getElementById("parent");
+                var div = document.createElement("div");
+                parent.append(div)
+                div.innerHTML=`<img src=${data.avatar_url}/> 
+                 <h1>Name: ${data.login}</h1> 
+                 <h3>id: ${data.id}</h3> 
+                 <p>DATA BIO: ${data.bio}</p> 
+                 <p>FOLLOWERS: ${data.followers}</p> 
+                 <p>FOLLOWING: ${data.following}</p> 
+                 <p>PUBLIC REP: ${data.public_repos}</p> 
+                 <a href=${data.html_url} target="_blank"> PROFILE</a>`
+
+            })
+            
+        }
+
+    </script>
+</body>
+</html>
